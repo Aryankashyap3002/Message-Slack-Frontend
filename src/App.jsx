@@ -7,6 +7,7 @@ import { SigninCard } from '@/components/organisms/Auth/SigninCard';
  import { Auth } from '@/pages/Auth/Auth';
  import { Notfound } from '@/pages/Notfound/Notfound';
  import { SignupContainer } from './components/organisms/Auth/SignupContainer';
+ import { Toaster } from "@/components/ui/sonner";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/auth/signin" element={<Auth><SigninCard /></Auth>} />
         <Route path="/*" element={<Notfound />} />
       </Routes>
+      <Toaster />
     </QueryClientProvider>
     
   )
