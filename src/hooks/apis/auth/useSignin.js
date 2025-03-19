@@ -6,8 +6,14 @@ import { useMutation } from '@tanstack/react-query';
  export const useSignin = () => {
      const { isPending, isSuccess, error, mutateAsync: signinMutation } = useMutation({
          mutationFn: signInRequest,
-         onSuccess: (data) => {
-             console.log('Scuccessfully signed in', data);
+         onSuccess: (response) => {
+             console.log('Scuccessfully signed in', response);
+
+             const userObject = JSON.stringify(response.data);
+
+             localStorage.setItem('user', userObject);
+             localStorage.setItem('token', response.data.token);
+              
              toast.success('Successfully signed up', {
                 style: { 
                     textAlign: "center", 
