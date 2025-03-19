@@ -6,7 +6,8 @@ import { createContext, useEffect, useState } from 'react';
  
      const [auth, setAuth] = useState({
          user: null,
-         token: null
+         token: null,
+         isLoading: true
      });
  
      useEffect(() => {
@@ -15,9 +16,16 @@ import { createContext, useEffect, useState } from 'react';
          if(user && token) {
              setAuth({
                  user: JSON.parse(user),
-                 token
+                 token,
+                 isLoading: false
              });
-         }
+         } else {
+            setAuth({
+                user: null,
+                token: null,
+                isLoading: false
+            });
+        }
      } , []);
  
      return (
