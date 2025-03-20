@@ -1,4 +1,5 @@
 import { WorkspaceNavbar } from '@/components/organisms/Workspace/WorkspaceNavbar';
+import { WorkspacePanel } from '@/components/organisms/Workspace/WorkspacePanel';
 import { WorkspaceSidebar } from '@/components/organisms/Workspace/WorkspaceSidebar';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
  
@@ -14,9 +15,7 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/componen
                          minSize={11}
                          className='bg-[#5E2C5F]'
                      >
-                         <div>
-                             Sidebar
-                         </div>
+                        <WorkspacePanel />
                      </ResizablePanel>
                      <ResizableHandle withHandle/>
                      <ResizablePanel
