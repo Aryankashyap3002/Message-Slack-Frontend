@@ -9,7 +9,7 @@ import axios from '@/config/axiosConfig';
              }
          });
          console.log('Response in create workspace request', response);
-         return response?.data;
+         return response?.data.data;
  
      } catch(error) {
          console.log('Error in create workspace request', error);
