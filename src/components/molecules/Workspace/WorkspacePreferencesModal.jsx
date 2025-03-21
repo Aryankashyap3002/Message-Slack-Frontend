@@ -37,7 +37,11 @@ import { TrashIcon } from 'lucide-react';
                              </p>
                          </div>
  
- 
+                         <p
+                             className='text-sm'
+                         >
+                             {initialValue}
+                         </p>
  
                      </div>
  
@@ -45,7 +49,9 @@ import { TrashIcon } from 'lucide-react';
                          className='flex items-center gap-x-2 px-5 py-4 bg-white rounded-lg border cursor-pointer hover:bg-gray-50'
                      >
                          <TrashIcon className='size-5' />
-                         <p>
+                         <p
+                            className='text-sm font-semibold'
+                         >
                              Delete Workspace
                          </p>
                      </button>
