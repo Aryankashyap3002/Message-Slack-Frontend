@@ -1,6 +1,5 @@
 import { InfoIcon, LucideLoader2, SearchIcon } from 'lucide-react';
 import { useEffect } from 'react';
- import { useParams } from 'react-router-dom';
  import { useNavigate, useParams } from 'react-router-dom';
  
  import { Button } from '@/components/ui/button';
