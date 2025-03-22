@@ -18,7 +18,7 @@ import { useEffect } from 'react';
  
      console.log(auth);
  
-     const isLoggedInUserAdminOfWorkspace = workspacemembers?.find(member => member.memberId === auth?.user?._id && member.role === 'admin');
+     const isLoggedInUserAdminOfWorkspace = workspacemembers?.find(member => member.memberId._id  === auth?.user?._id && member.role === 'admin');
  
      console.log(isLoggedInUserAdminOfWorkspace);
  
