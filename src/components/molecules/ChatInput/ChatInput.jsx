@@ -12,7 +12,7 @@ import { Editor } from "@/components/atoms/Editor/Editor";
          >
              <Editor 
                  placeholder="Type a message..."
-                 onSubmit={onSubmit={handleSubmit}}
+                 onSubmit={handleSubmit}
                  onCancel={() => {}}
                  disabled={false}
                  defaultValue=""
