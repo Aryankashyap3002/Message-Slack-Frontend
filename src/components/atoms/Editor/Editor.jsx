@@ -3,6 +3,7 @@ import 'quill/dist/quill.snow.css'; // ES6
 import { ImageIcon } from 'lucide-react';
 import Quill from 'quill';
  import { useEffect, useRef, useState } from 'react';
+ import { MdSend } from 'react-icons/md';
  import { PiTextAa } from 'react-icons/pi';
  
  import { Button } from '@/components/ui/button';
@@ -11,7 +12,7 @@ import Quill from 'quill';
 
  export const Editor = ({
     //  variant = 'create',
-    //  onSubmit,
+     onSubmit,
     //  onCancel,
     //  placeholder,
     //  disabled,
@@ -21,7 +22,6 @@ import Quill from 'quill';
      const [isToolbarVisible, setIsToolbarVisible] = useState(false); 
 
      const containerRef = useRef(); // reqd to initialize the editor
-     
      const defaultValueRef = useRef();
      const quillRef = useRef();
 
@@ -82,15 +82,15 @@ import Quill from 'quill';
  
      return (
          <div
-             className='flex flex-col'
+             className='flex flex-col '
          >
  
              <div
-                 className='flex flex-col border border-slate-300 rounded-md overflow-hidden focus-within:shadow-sm focus-within:border-slate-400 bg-white'
+                 className='flex flex-col border border-slate-300 rounded-md overflow-hidden focus-within:shadow-sm focus-within:border-slate-400 bg-white '
              >
-                 <div className='h-full ql-custom' ref={containerRef} />
+                 <div className='min-h-30 ql-custom' ref={containerRef} />
 
-                 <div className='flex px-2 pb-2 z-[5]'>
+                 <div className='flex px-2 pb-2 z-[5] '>
                     <Hint label={!isToolbarVisible ? 'Show toolbar' : 'Hide toolbar'} side='bottom' align='center'>
                          <Button
                              size="iconSm"
@@ -98,9 +98,12 @@ import Quill from 'quill';
                              disabled={false}
                              onClick={toggleToolbar}
                          >
-                             <PiTextAa className='size-4' />
+                             <PiTextAa className='size-4 ' />
                          </Button>
                      </Hint>
+
+                      {/* Added margin here */}
+                        <div className="mx-2" /> 
  
                      <Hint label="Image">
                          <Button
@@ -110,6 +113,19 @@ import Quill from 'quill';
                              onClick={() => {}}
                          >
                              <ImageIcon className='size-4' />
+                         </Button>
+                     </Hint>
+
+                     <Hint label="Send Message">
+                         <Button
+                             size="iconSm"
+                             className="ml-auto bg-[#007a6a] hover:bg-[#007a6a]/80 text-white"
+                             onClick={() => {
+                                 onSubmit({ body: JSON.stringify(quillRef.current?.getContents()) });
+                             }}
+                             disabled={false}
+                         >
+                             <MdSend className='size-4' />
                          </Button>
                      </Hint>
                  </div>
