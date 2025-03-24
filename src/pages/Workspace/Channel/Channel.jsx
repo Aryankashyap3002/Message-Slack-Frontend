@@ -47,7 +47,7 @@ import { Message } from '@/components/molecules/Message/Message';
      useEffect(() => {
         if(isSuccess ) {
             console.log('Channel Messages fetched');
-            setMessageList(messages);
+            setMessageList(messages.reverse());
         }
     }, [isSuccess, messages, setMessageList, channelId]);
  

@@ -1,6 +1,6 @@
 import 'quill/dist/quill.snow.css'; // ES6
 
-import { ImageIcon } from 'lucide-react';
+import { ImageIcon, XIcon } from 'lucide-react';
 import Quill from 'quill';
  import { useEffect, useRef, useState } from 'react';
  import { MdSend } from 'react-icons/md';
@@ -21,9 +21,12 @@ import Quill from 'quill';
      
      const [isToolbarVisible, setIsToolbarVisible] = useState(false); 
 
+     const [image, setImage] = useState(null);
+
      const containerRef = useRef(); // reqd to initialize the editor
      const defaultValueRef = useRef();
      const quillRef = useRef();
+     const imageInputRef = useRef(null);
 
      function toggleToolbar() {
         setIsToolbarVisible(!isToolbarVisible);
@@ -90,6 +93,30 @@ import Quill from 'quill';
              >
                  <div className='min-h-30 ql-custom' ref={containerRef} />
 
+                 {
+                     image && (
+                         <div
+                             className='p-2'
+                         >
+                             <div className='relative size-[60px] flex items-center justify-center group/image'>
+                                 <button
+                                     className='hidden group-hover/image:flex rounded-full bg-black/70 hover:bg-black absolute -top-2.5 -right-2.5 text-white size-6 z-[5] border-2 border-white items-center justify-center'
+                                     onClick={() => {
+                                         setImage(null);
+                                         imageInputRef.current.value = '';
+                                     }}
+                                 >
+                                     <XIcon className='size-4' />
+                                 </button>
+                                 <img 
+                                     src={URL.createObjectURL(image)}
+                                     className='rounded-xl overflow-hidden border object-cover'
+                                 />
+                             </div>
+                         </div>
+                     )
+                 }
+
                  <div className='flex px-2 pb-2 z-[5] '>
                     <Hint label={!isToolbarVisible ? 'Show toolbar' : 'Hide toolbar'} side='bottom' align='center'>
                          <Button
@@ -110,11 +137,19 @@ import Quill from 'quill';
                              size="iconSm"
                              variant="ghost"
                              disabled={false}
-                             onClick={() => {}}
+                             onClick={() => { imageInputRef.current.click(); }}
                          >
                              <ImageIcon className='size-4' />
                          </Button>
                      </Hint>
+
+                     <input 
+                         type="file"
+                         className='hidden'
+                         ref={imageInputRef}
+                         onChange={(e) => setImage(e.target.files[0])}
+                     />
+ 
 
                      <Hint label="Send Message">
                          <Button
@@ -122,8 +157,10 @@ import Quill from 'quill';
                              className="ml-auto bg-[#007a6a] hover:bg-[#007a6a]/80 text-white"
                              onClick={() => {
                                 const messageContent = JSON.stringify(quillRef.current?.getContents());
-                                onSubmit({ body: messageContent });
+                                onSubmit({ body: messageContent, image });
                                 quillRef.current?.setText('');
+                                setImage(null);
+                                imageInputRef.current.value = '';
                              }}
                              disabled={false}
                          >
