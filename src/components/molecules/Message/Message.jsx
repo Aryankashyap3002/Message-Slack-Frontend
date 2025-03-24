@@ -40,7 +40,7 @@ import { MessageRenderer } from '@/components/atoms/MessageRenderer/MessageRende
                          <button
                              className='text-xs text-muted-foreground hover:underline'
                          >
-                             {createdAt}
+                             {createdAt || 'Just now'}
                          </button>
                      </div>
  
