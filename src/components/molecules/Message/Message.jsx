@@ -5,7 +5,8 @@ import { MessageRenderer } from '@/components/atoms/MessageRenderer/MessageRende
      authorImage,
      authorName,
      createdAt,
-     body
+     body,
+     image
  }) => {
      return (
          <div
@@ -46,6 +47,7 @@ import { MessageRenderer } from '@/components/atoms/MessageRenderer/MessageRende
  
                      <MessageRenderer value={body} />
                      {/* Any images if there are */}
+                     {image && <MessageImageThumbnail url={image} />}
  
                  </div>
  
