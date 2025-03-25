@@ -10,6 +10,7 @@ import { Route, Routes } from 'react-router-dom';
  import { ProtectedRoute } from '@/components/molecules/ProtectedRoute/ProtectedRoute';
 import { Home } from '@/pages/Home/Home';
 import { WorkspaceLayout } from '@/pages/Workspace/Layout';
+import { Payments } from './pages/Payments/Payments';
 
  
  export const AppRoutes = () => {
@@ -24,6 +25,7 @@ import { WorkspaceLayout } from '@/pages/Workspace/Layout';
              element={<ProtectedRoute><WorkspaceLayout><Channel /></WorkspaceLayout></ProtectedRoute>}
  
            />
+           <Route path="/makepayment" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
            <Route path="/workspaces/join/:workspaceId" element={<JoinPage />} />
            <Route path="/*" element={<Notfound />} />
          </Routes>
