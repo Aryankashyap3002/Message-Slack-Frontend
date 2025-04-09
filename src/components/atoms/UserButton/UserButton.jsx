@@ -1,11 +1,11 @@
 import { LogOutIcon, PencilIcon, SettingsIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
- 
+ import { toast } from 'sonner'; 
+
  import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
  import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
  import { useAuth } from '@/hooks/context/useAuth';
  import { useCreateWorkspaceModal } from '@/hooks/context/useCreateWorkspaceModal';
- import { toast } from "sonner" 
  
  export const UserButton = () => {
 

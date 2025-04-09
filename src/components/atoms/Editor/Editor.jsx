@@ -5,9 +5,9 @@ import Quill from 'quill';
  import { useEffect, useRef, useState } from 'react';
  import { MdSend } from 'react-icons/md';
  import { PiTextAa } from 'react-icons/pi';
- 
+
  import { Button } from '@/components/ui/button';
- 
+
  import { Hint } from '../Hint/Hint';
 
  export const Editor = ({

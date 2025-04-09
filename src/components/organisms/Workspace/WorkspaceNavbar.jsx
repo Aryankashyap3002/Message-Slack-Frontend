@@ -1,7 +1,7 @@
 import { InfoIcon, LucideLoader2, SearchIcon } from 'lucide-react';
 import { useEffect } from 'react';
  import { useNavigate, useParams } from 'react-router-dom';
- 
+
  import { Button } from '@/components/ui/button';
  import { useGetWorkspaceById } from '@/hooks/apis/workspaces/useGetWorkspaceById';
  import { useAuth } from '@/hooks/context/useAuth';

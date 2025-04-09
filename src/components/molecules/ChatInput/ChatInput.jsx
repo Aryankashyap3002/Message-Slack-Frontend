@@ -1,9 +1,10 @@
+ import { useQueryClient } from '@tanstack/react-query';
+
 import { getPreginedUrl, uploadImageToAWSpresignedUrl } from '@/apis/s3';
-import { Editor } from "@/components/atoms/Editor/Editor";
+import { Editor } from '@/components/atoms/Editor/Editor';
 import { useAuth } from '@/hooks/context/useAuth';
  import { useCurrentWorkspace } from '@/hooks/context/useCurrentWorkspace';
  import { useSocket } from '@/hooks/context/useSocket';
- import { useQueryClient } from '@tanstack/react-query';
  
  export const ChatInput = () => {
 
@@ -27,7 +28,7 @@ import { useAuth } from '@/hooks/context/useAuth';
                  url: preSignedUrl,
                  file: image
              });
-             console.log("file upload success", responseAws);
+             console.log('file upload success', responseAws);
              fileUrl = preSignedUrl.split('?')[0];
          }
         socket?.emit('NewMessage', {

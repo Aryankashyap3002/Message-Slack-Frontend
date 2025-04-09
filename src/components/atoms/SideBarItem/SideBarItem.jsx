@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
  import { Link, useParams } from 'react-router-dom';
- 
+
  import { Button } from '@/components/ui/button';
  import { cn } from '@/lib/utils';
  

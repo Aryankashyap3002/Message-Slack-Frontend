@@ -14,7 +14,7 @@ import axios from '../../config/axiosConfig';
      } catch (error) {
          console.log('Error in creating order', error);
      }
- }
+ };
  
  export const capturePaymentRequest = async ({ token, orderId, status, paymentId, signature }) => {
      try {
@@ -34,4 +34,4 @@ import axios from '../../config/axiosConfig';
      } catch (error) {
          console.log('Error in capturing payment', error);
      }
- }
+ };

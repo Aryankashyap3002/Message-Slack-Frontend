@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
- 
+
  import { getPaginatedMessages } from '@/apis/channels';
  import { useAuth } from '@/hooks/context/useAuth';
  

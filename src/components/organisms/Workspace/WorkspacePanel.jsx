@@ -1,6 +1,6 @@
 import { AlertTriangleIcon, HashIcon, Loader, MessageSquareTextIcon, SendHorizonalIcon } from 'lucide-react';
  import { useParams } from 'react-router-dom';
- 
+
  import { SideBarItem } from '@/components/atoms/SideBarItem/SideBarItem';
  import { UserItem } from '@/components/atoms/UserItem/UserItem';
  import { WorkspacePanelHeader } from '@/components/molecules/Workspace/WorkspacePanelHeader';

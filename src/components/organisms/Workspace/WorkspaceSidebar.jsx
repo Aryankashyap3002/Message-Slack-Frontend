@@ -1,5 +1,5 @@
 import { BellIcon, HomeIcon, MessageSquareIcon, MoreHorizontalIcon } from 'lucide-react';
- 
+
  import { UserButton } from '@/components/atoms/UserButton/UserButton';
  import { SidebarButton } from '@/components/molecules/SidebarButton/SidebarButton';
  import { WorkspaceSwitcher } from '@/components/organisms/Workspace/WorkspaceSwitcher';

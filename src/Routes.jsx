@@ -1,16 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
- 
+
+ import { ProtectedRoute } from '@/components/molecules/ProtectedRoute/ProtectedRoute';
  import { SigninContainer } from '@/components/organisms/Auth/SigninContainer';
  import { SignupContainer } from '@/components/organisms/Auth/SignupContainer';
  import { Auth } from '@/pages/Auth/Auth';
+import { Home } from '@/pages/Home/Home';
  import { Notfound } from '@/pages/Notfound/Notfound';
+import { WorkspaceLayout } from '@/pages/Workspace/Layout';
 
+import { Payments } from './pages/Payments/Payments';
  import { Channel } from './pages/Workspace/Channel/Channel';
  import { JoinPage } from './pages/Workspace/JoinPage';
- import { ProtectedRoute } from '@/components/molecules/ProtectedRoute/ProtectedRoute';
-import { Home } from '@/pages/Home/Home';
-import { WorkspaceLayout } from '@/pages/Workspace/Layout';
-import { Payments } from './pages/Payments/Payments';
 
  
  export const AppRoutes = () => {

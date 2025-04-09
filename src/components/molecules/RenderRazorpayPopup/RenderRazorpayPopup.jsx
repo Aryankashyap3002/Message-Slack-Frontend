@@ -1,5 +1,6 @@
-import { useCaptureOrder } from "@/hooks/apis/payments/useCaptureOrder";
- import { useEffect, useState } from "react";
+ import { useEffect, useState } from 'react';
+
+import { useCaptureOrder } from '@/hooks/apis/payments/useCaptureOrder';
  
  const loadRazorpayScript = (src) => {
      return new Promise((res, rej) => {
@@ -14,8 +15,8 @@ import { useCaptureOrder } from "@/hooks/apis/payments/useCaptureOrder";
              res(false);
          };
          document.body.appendChild(script);
-     })
- }
+     });
+ };
  
  export const RenderRazorpayPopup = ({ 
      orderId,
@@ -47,15 +48,15 @@ import { useCaptureOrder } from "@/hooks/apis/payments/useCaptureOrder";
          });
  
          rzp.open();
-     }
+     };
  
      useEffect(() => {
          display({
              key: keyId,
              amount, 
              currency,
-             name: "Slack", // name of the company
-             description: "Test Transaction",
+             name: 'Slack', // name of the company
+             description: 'Test Transaction',
              order_id: orderId,
              handler: async (response) => {
                  console.log('Payment success', response);
@@ -68,9 +69,9 @@ import { useCaptureOrder } from "@/hooks/apis/payments/useCaptureOrder";
                  });
                  // redirect your user to your custom succesds page
              }
-         })
+         });
          
      }, [orderId]);
  
      return null;
- }
+ };

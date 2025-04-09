@@ -1,6 +1,7 @@
+ import { useState } from 'react';
+
 import { RenderRazorpayPopup } from '@/components/molecules/RenderRazorpayPopup/RenderRazorpayPopup';
  import { useCreateOrder } from '@/hooks/apis/payments/useCreateOrder';
- import { useState } from 'react';
  
  export const Payments = () => {
      const [amount, setAmount] = useState('');
@@ -10,7 +11,7 @@ import { RenderRazorpayPopup } from '@/components/molecules/RenderRazorpayPopup/
      async function handleFormSubmit(e) {
          e.preventDefault();
          const response = await createOrderMutation(amount*100);
-         console.log("order response", response);
+         console.log('order response', response);
          setOrderResponse(response);
      }
  
@@ -42,7 +43,7 @@ import { RenderRazorpayPopup } from '@/components/molecules/RenderRazorpayPopup/
                              amount={amount*100} 
                              orderId={orderResponse?.id} 
                              keyId={import.meta.env.VITE_RAZORPAY_KEY_ID}
-                             currency={"INR"}
+                             currency={'INR'}
  
                          />}
                      </div>
@@ -50,4 +51,4 @@ import { RenderRazorpayPopup } from '@/components/molecules/RenderRazorpayPopup/
              </div>
          </div>
      );
- } 
+ }; 

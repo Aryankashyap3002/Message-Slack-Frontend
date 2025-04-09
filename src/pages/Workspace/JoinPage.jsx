@@ -1,9 +1,9 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
  import VerificationInput from 'react-verification-input';
- 
+ import { toast } from 'sonner';
+
  import { Button } from '@/components/ui/button';
  import { useJoinWorkspaceRequest } from '@/hooks/apis/workspaces/useJoinWorkspace';
- import { toast } from 'sonner'
 
 
  export const JoinPage = () => {

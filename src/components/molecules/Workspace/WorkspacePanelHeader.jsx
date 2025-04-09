@@ -1,6 +1,6 @@
 import { ChevronDownIcon, ListFilterIcon, SquarePenIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
- 
+
 import { WorkspaceInviteModal } from '@/components/organisms/Modals/WorkspaceInviteModal';
  import { Button } from '@/components/ui/button';
  import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';

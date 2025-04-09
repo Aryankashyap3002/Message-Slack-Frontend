@@ -2,14 +2,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { TrashIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
- 
+ import { toast } from 'sonner';
+
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
  import { useDeleteWorkspace } from '@/hooks/apis/workspaces/useDeleteWorkspace';
  import { useUpdateWorkspace } from '@/hooks/apis/workspaces/useUpdateWorkspace';
  import { useWorkspacePreferencesModal } from '@/hooks/context/useWorkspacePreferencesModal';
- import { toast } from 'sonner';
  import { useConfirm } from '@/hooks/useConfirm';
  
  export const WorkspacePreferencesModal = () => {

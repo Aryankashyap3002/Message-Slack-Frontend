@@ -1,13 +1,13 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
- 
+ import { toast } from 'sonner';
+
  import { Button } from '@/components/ui/button';
  import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
  import { Input } from '@/components/ui/input';
  import { useAddChannelToWorkspace } from '@/hooks/apis/workspaces/useAddChannelToWorkspace';
  import { useCreateChannelModal } from '@/hooks/context/useCreateChannelModal';
  import { useCurrentWorkspace } from '@/hooks/context/useCurrentWorkspace';
- import { toast } from 'sonner';
  
  export const CreateChannelModal = () => {
 

@@ -1,6 +1,6 @@
 import { LucideLoader2 } from 'lucide-react';
  import { Navigate } from 'react-router-dom';
- 
+
  import { useAuth } from '@/hooks/context/useAuth';
  
  export const ProtectedRoute = ({ children }) => {

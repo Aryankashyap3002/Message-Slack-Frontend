@@ -1,7 +1,7 @@
 import { PlusIcon } from 'lucide-react';
  import { useState } from 'react';
  import { FaCaretDown, FaCaretRight } from 'react-icons/fa';
- 
+
  import { Button } from '@/components/ui/button';
  
  export const WorkspacePanelSection = ({ children , label, onIconClick}) => {

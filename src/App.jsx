@@ -1,11 +1,12 @@
-import './App.css'
+import './App.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
  import { Modals } from '@/components/organisms/Modals/Modals';
- import { AppContextProvider } from './context/AppContextProvider';
- import { Toaster } from "@/components/ui/sonner";
+ import { Toaster } from '@/components/ui/sonner';
  import { AppRoutes } from '@/Routes';
+
+ import { AppContextProvider } from './context/AppContextProvider';
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
         <Toaster />
     </QueryClientProvider>
     
-  )
+  );
 }
 
-export default App
+export default App;
