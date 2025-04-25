@@ -4,6 +4,7 @@ import combineContext from '@/utils/combineContext';
  import { ChannelMessagesProvider } from './CHannelMessages';
  import { CreateChannelContextProvider } from './CreateChannelContext';
  import { CreateWorkspaceContextProvider } from './CreateWorkspaceContext';
+import { SidebarToggleProvider } from './SidebarToggleContext';
  import { SocketContextProvider } from './SocketContext';
  import { WorkspaceContextProvider } from './WorkspaceContext';
  import { WorkspacePreferencesModalContextProvider } from './WorkspacePreferencesModalContext';
@@ -15,5 +16,6 @@ import combineContext from '@/utils/combineContext';
      WorkspaceContextProvider,
      CreateWorkspaceContextProvider,
      WorkspacePreferencesModalContextProvider,
-     CreateChannelContextProvider
+     CreateChannelContextProvider,
+     SidebarToggleProvider
  ); 

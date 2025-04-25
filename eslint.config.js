@@ -1,40 +1,64 @@
 import js from '@eslint/js';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import { defineConfig } from 'eslint/config';
+import pluginImport from 'eslint-plugin-import';
+import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
+import pluginReact from 'eslint-plugin-react';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
+import pluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
 import globals from 'globals';
 
-export default [
-  { ignores: ['dist'] },
+export default defineConfig([
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
       parserOptions: {
         ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
         sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
       },
     },
     plugins: {
-      'simple-import-sort': simpleImportSort,
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+      react: pluginReact,
+      'react-hooks': pluginReactHooks,
+      import: pluginImport,
+      'simple-import-sort': pluginSimpleImportSort,
+      'jsx-a11y': pluginJsxA11y,
     },
     rules: {
+      ...js.configs.recommended.rules,
+
+      // General JavaScript
+      quotes: ['error', 'single'],
+
+      // Import sorting
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      ...js.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-      'semi': ['error', 'always'],
-      'quotes': ['error', 'single'],
-      'react/prop-types': 'off',
+
+      // React rules
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'warn',
+      'react/jsx-uses-react': 'off',
+      'react/jsx-uses-vars': 'error',
+      'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.tsx'] }],
+
+      // React hooks
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+
+      // Accessibility
+      'jsx-a11y/alt-text': 'warn',
+      'jsx-a11y/anchor-is-valid': 'warn',
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
     },
   },
-];
+]);

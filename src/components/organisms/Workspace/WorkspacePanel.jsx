@@ -15,6 +15,8 @@ import { AlertTriangleIcon, HashIcon, Loader, MessageSquareTextIcon, SendHorizon
      const { setOpenCreateChannelModal } = useCreateChannelModal();
  
      const { workspace, isFetching, isSuccess } = useGetWorkspaceById(workspaceId);
+
+     console.log('From panel', workspace,  workspaceId);
  
      if(isFetching) {
  

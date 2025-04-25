@@ -30,7 +30,7 @@ import { Input } from '@/components/ui/input';
  
      const [renameValue, setRenameValue] = useState(workspace?.name);
  
-     function handleClose() {
+     function handleClose() { 
          setOpenPreferences(false);
      }
 
