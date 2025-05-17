@@ -49,7 +49,7 @@ import { useEffect, useState } from 'react';
      useEffect(() => {
          if(isSuccess) {
              setTimeout(() => {
-                 navigate('/auth/signin');
+                 navigate('/');
              }, 3000);
          }
              

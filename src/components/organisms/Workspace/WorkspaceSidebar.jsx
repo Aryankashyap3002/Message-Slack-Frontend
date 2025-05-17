@@ -7,6 +7,14 @@ import { SidebarButton } from '@/components/molecules/SidebarButton/SidebarButto
 import { WorkspaceSwitcher } from '@/components/organisms/Workspace/WorkspaceSwitcher';
 import { Button } from '@/components/ui/button';
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -19,6 +27,8 @@ import { useTreeStructureStore } from '@/store/treeStructureStore';
 export const WorkspaceSidebar = () => {
     const [createMenuOpen, setCreateMenuOpen] = useState(false);
     const [projectsMenuOpen, setProjectsMenuOpen] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [createdProjectId, setCreatedProjectId] = useState('');
     const navigate = useNavigate();
     const { workspaceId } = useParams();
     const location = useLocation();
@@ -43,8 +53,9 @@ export const WorkspaceSidebar = () => {
             const projectId = response.data?._id || response.data;
 
             if (projectId) {
-                // Navigate to the project page with both workspace and project IDs
-                navigate(`/workspaces/${workspaceId}/projects/${projectId}`);
+                // Set the created project ID and show the success modal
+                setCreatedProjectId(projectId);
+                setShowSuccessModal(true);
             } else {
                 console.error('Project ID not found in response', response);
             }
@@ -59,123 +70,161 @@ export const WorkspaceSidebar = () => {
         navigate(`/workspaces/${workspaceId}/projects/${projectId}`);
     };
 
+    const handleNavigateToProject = () => {
+        setShowSuccessModal(false);
+        setProjectId(createdProjectId);
+        navigate(`/workspaces/${workspaceId}/projects/${createdProjectId}`);
+    };
+
+    const handleCloseModal = () => {
+        setShowSuccessModal(false);
+    };
+
     return (
-        <aside
-        className="w-[70px] h-full bg-[#481349] flex flex-col gap-y-4 items-center pt-[10px] pb-[5px]"
-        >
-            <WorkspaceSwitcher />
+        <>
+            <aside
+                className="w-[70px] h-full bg-[#481349] flex flex-col gap-y-4 items-center pt-[10px] pb-[5px]"
+            >
+                <WorkspaceSwitcher />
 
-            <SidebarButton 
-                Icon={HomeIcon}
-                label="Home"
-                onClick={() => navigate(`/workspaces/${workspaceId}`)}
-            />
-
-            {/* Projects Menu Button */}
-            <Popover open={projectsMenuOpen} onOpenChange={setProjectsMenuOpen}>
-                <PopoverTrigger asChild>
-                    <div className="cursor-pointer">
-                        <SidebarButton
-                            Icon={FolderIcon}
-                            label="Projects"
-                        />
-                    </div>
-                </PopoverTrigger>
-                <PopoverContent className="w-64 max-h-80 overflow-y-auto" side="right">
-                    <div className="flex flex-col gap-2">
-                        <h3 className="text-sm font-medium mb-2">Projects</h3>
-                        
-                        {isLoading && <p className="text-sm text-muted-foreground">Loading projects...</p>}
-                        
-                        {error && (
-                            <p className="text-sm text-red-500">
-                                Error loading projects: {error.message}
-                            </p>
-                        )}
-                        
-                        {projects && projects.length === 0 && (
-                            <p className="text-sm text-muted-foreground">No projects found</p>
-                        )}
-                        
-                        {projects && projects.map((project) => (
-                            <Button 
-                                key={project.id} 
-                                variant="ghost" 
-                                className="justify-start text-left h-auto py-2"
-                                onClick={() => handleProjectSelect(project.id)}
-                            >
-                                <div className="flex flex-col items-start">
-                                    <span className="font-medium">{project.name || project.id}</span>
-                                    {project.description && (
-                                        <span className="text-xs text-muted-foreground truncate w-full">
-                                            {project.description}
-                                        </span>
-                                    )}
-                                </div>
-                            </Button>
-                        ))}
-                    </div>
-                </PopoverContent>
-            </Popover>
-
-            <SidebarButton
-                Icon={MessageSquareIcon}
-                label="DMs"
-            />
-
-            {/* Create Project Button with Popover */}
-            <Popover open={createMenuOpen} onOpenChange={setCreateMenuOpen}>
-                <PopoverTrigger asChild>
-                    <div className="cursor-pointer">
-                        <SidebarButton
-                            Icon={PlusCircleIcon}
-                            label="Create"
-                        />
-                    </div>
-                </PopoverTrigger>
-                <PopoverContent className="w-48" side="right">
-                    <div className="flex flex-col gap-2">
-                        <Button 
-                            variant="outline" 
-                            className="justify-start"
-                            onClick={handleCreateProject}
-                            disabled={isPending}
-                        >
-                            {isPending ? 'Creating...' : 'Create Project'}
-                        </Button>
-                    </div>
-                </PopoverContent>
-            </Popover>
-
-            {/* Workspace Panel Toggle Button */}
-            <SidebarButton
-                Icon={PanelLeftIcon}
-                label="Panel"
-                onClick={toggleWorkspacePanel}
-            />
-
-            {/* File Tree Toggle Button - Only show on project pages */}
-            {isProjectPage && (
-                <SidebarButton
-                    Icon={FolderTreeIcon}
-                    label="Files"
-                    onClick={toggleFileTree}
+                <SidebarButton 
+                    Icon={HomeIcon}
+                    label="Home"
+                    onClick={() => navigate(`/workspaces/${workspaceId}`)}
                 />
-            )}
 
-            <SidebarButton
-                Icon={BellIcon}
-                label="Notifications"
-            />
+                {/* Projects Menu Button */}
+                <Popover open={projectsMenuOpen} onOpenChange={setProjectsMenuOpen}>
+                    <PopoverTrigger asChild>
+                        <div className="cursor-pointer">
+                            <SidebarButton
+                                Icon={FolderIcon}
+                                label="Projects"
+                            />
+                        </div>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-64 max-h-80 overflow-y-auto" side="right">
+                        <div className="flex flex-col gap-2">
+                            <h3 className="text-sm font-medium mb-2">Projects</h3>
+                            
+                            {isLoading && <p className="text-sm text-muted-foreground">Loading projects...</p>}
+                            
+                            {error && (
+                                <p className="text-sm text-red-500">
+                                    Error loading projects: {error.message}
+                                </p>
+                            )}
+                            
+                            {projects && projects.length === 0 && (
+                                <p className="text-sm text-muted-foreground">No projects found</p>
+                            )}
+                            
+                            {projects && projects.map((project) => (
+                                <Button 
+                                    key={project.id} 
+                                    variant="ghost" 
+                                    className="justify-start text-left h-auto py-2"
+                                    onClick={() => handleProjectSelect(project.id)}
+                                >
+                                    <div className="flex flex-col items-start">
+                                        <span className="font-medium">{project.name || project.id}</span>
+                                        {project.description && (
+                                            <span className="text-xs text-muted-foreground truncate w-full">
+                                                {project.description}
+                                            </span>
+                                        )}
+                                    </div>
+                                </Button>
+                            ))}
+                        </div>
+                    </PopoverContent>
+                </Popover>
 
-            <SidebarButton
-                Icon={MoreHorizontalIcon}
-                label="More"
-            />
+                <SidebarButton
+                    Icon={MessageSquareIcon}
+                    label="DMs"
+                />
 
-            <div className='flex flex-col items-center justify-center mt-auto mb-5 gap-y-1'>
-                <UserButton />
-            </div>
-        </aside>
+                {/* Create Project Button with Popover */}
+                <Popover open={createMenuOpen} onOpenChange={setCreateMenuOpen}>
+                    <PopoverTrigger asChild>
+                        <div className="cursor-pointer">
+                            <SidebarButton
+                                Icon={PlusCircleIcon}
+                                label="Create"
+                            />
+                        </div>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-48" side="right">
+                        <div className="flex flex-col gap-2">
+                            <Button 
+                                variant="outline" 
+                                className="justify-start"
+                                onClick={handleCreateProject}
+                                disabled={isPending}
+                            >
+                                {isPending ? 'Creating...' : 'Create Project'}
+                            </Button>
+                        </div>
+                    </PopoverContent>
+                </Popover>
+
+                {/* Workspace Panel Toggle Button */}
+                <SidebarButton
+                    Icon={PanelLeftIcon}
+                    label="Panel"
+                    onClick={toggleWorkspacePanel}
+                />
+
+                {/* File Tree Toggle Button - Only show on project pages */}
+                {isProjectPage && (
+                    <SidebarButton
+                        Icon={FolderTreeIcon}
+                        label="Files"
+                        onClick={toggleFileTree}
+                    />
+                )}
+
+                <SidebarButton
+                    Icon={BellIcon}
+                    label="Notifications"
+                />
+
+                <SidebarButton
+                    Icon={MoreHorizontalIcon}
+                    label="More"
+                />
+
+                <div className='flex flex-col items-center justify-center mt-auto mb-5 gap-y-1'>
+                    <UserButton />
+                </div>
+            </aside>
+
+            {/* Success Modal */}
+            <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                        <DialogTitle>Project Created Successfully!</DialogTitle>
+                        <DialogDescription>
+                            Your new project has been created.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex flex-col gap-4 py-4">
+                        <div className="bg-muted p-4 rounded-md">
+                            <p className="text-sm font-medium">Project ID:</p>
+                            <p className="text-xs font-mono overflow-auto break-all bg-background p-2 rounded mt-1">{createdProjectId}</p>
+                        </div>
+                    </div>
+                    <DialogFooter className="sm:justify-between">
+                        <Button variant="outline" onClick={handleCloseModal}>
+                            Close
+                        </Button>
+                        <Button onClick={handleNavigateToProject}>
+                            Go to Project
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+        </>
     );
 };

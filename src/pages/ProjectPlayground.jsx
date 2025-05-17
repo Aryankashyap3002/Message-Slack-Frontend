@@ -13,7 +13,6 @@ import { BrowserTerminal } from '../components/molecules/BrowserTerminal/Browser
 import { Browser } from '../components/organisms/Browser/Browser';
 import { TreeStructure } from '../components/organisms/TreeStructure/TreeStructure';
 import { useEditorSocketStore } from '../store/editorSocketStore';
-import { usePortStore } from '../store/portStore';
 import { useTerminalSocketStore } from '../store/terminalSocketStore';
 import { useTreeStructureStore } from '../store/treeStructureStore';
 
@@ -22,7 +21,6 @@ export const ProjectPlayground = () => {
     const { setProjectId, projectId } = useTreeStructureStore();
     const { editorSocket, setEditorSocket } = useEditorSocketStore();
     const { terminalSocket, setTerminalSocket } = useTerminalSocketStore();
-    const { port } = usePortStore();
     const { showFileTree } = useSidebarToggle();
 
     const [loadBrowser, setLoadBrowser] = useState(false);
@@ -41,7 +39,7 @@ export const ProjectPlayground = () => {
             // Request port information as soon as connected
             editorSocketConn.on('connect', () => {
                 console.log('Editor socket connected, requesting port...');
-                editorSocketConn.emit('getPort', { projectId: projectIdFromUrl });
+                editorSocketConn.emit('getPort', { containerName: projectIdFromUrl });
             });
 
             setEditorSocket(editorSocketConn);
@@ -64,6 +62,9 @@ export const ProjectPlayground = () => {
         return () => {
             if (editorSocket) {
                 editorSocket.disconnect();
+            }
+            if (terminalSocket) {
+                terminalSocket.close();
             }
         };
     }, [projectIdFromUrl, setProjectId, setEditorSocket, setTerminalSocket]);
@@ -125,6 +126,7 @@ export const ProjectPlayground = () => {
                                     >
                                         Load my browser
                                     </Button>
+                                   
                                 </div>
                             ) : (
                                 projectIdFromUrl && (

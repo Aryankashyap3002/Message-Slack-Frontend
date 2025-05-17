@@ -165,3 +165,116 @@
   color: #8d8d8d !important;
   @apply truncate;
 }
+
+
+/* Attractive styling for Monaco Editor with Dracula theme */
+.monaco-editor-wrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure editor takes full space */
+.monaco-editor-colorful {
+  width: 100%;
+  height: 100%;
+}
+
+/* Custom styling for scrollbars */
+.monaco-editor .scrollbar {
+  width: 8px !important;
+}
+
+.monaco-editor .scrollbar .slider {
+  background: rgba(128, 128, 128, 0.4) !important;
+  border-radius: 10px !important;
+}
+
+.monaco-editor .scrollbar .slider:hover {
+  background: rgba(128, 128, 128, 0.6) !important;
+}
+
+/* Improve cursor visibility */
+.monaco-editor .cursor {
+  width: 2px !important;
+  background-color: #f8f8f2 !important;
+  box-shadow: 0 0 5px #f8f8f2 !important;
+}
+
+/* Enhance line highlight */
+.monaco-editor .view-overlays .current-line {
+  border: none !important;
+  background-color: rgba(68, 71, 90, 0.5) !important;
+}
+
+/* Add hover effect for line numbers */
+.monaco-editor .margin-view-overlays .line-numbers:hover {
+  color: #f8f8f2 !important;
+  transition: color 0.2s ease;
+}
+
+/* Improve selected text visibility */
+.monaco-editor .selected-text {
+  background-color: rgba(68, 71, 90, 0.7) !important;
+}
+
+/* Make error squiggles more visible */
+.monaco-editor .squiggly-error {
+  background: rgba(255, 85, 85, 0.8) !important;
+}
+
+/* Make warning squiggles more visible */
+.monaco-editor .squiggly-warning {
+  background: rgba(241, 250, 140, 0.8) !important;
+}
+
+/* Enhance bracket matching */
+.monaco-editor .bracket-match {
+  background-color: rgba(80, 250, 123, 0.3) !important;
+  border: 1px solid rgba(80, 250, 123, 0.6) !important;
+}
+
+/* Add glow effect to matching brackets */
+.monaco-editor .bracket-match::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 0 3px rgba(80, 250, 123, 0.5);
+  border-radius: 2px;
+}
+
+/* Improve suggestion widget styling */
+.monaco-editor .suggest-widget {
+  border: none !important;
+  border-radius: 6px !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5) !important;
+  background-color: #21222c !important;
+}
+
+.monaco-editor .suggest-widget .monaco-list .monaco-list-row.focused {
+  background-color: #44475a !important;
+}
+
+/* Font rendering improvements */
+.monaco-editor * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fallback styles to ensure all syntax elements are visible */
+.monaco-editor .mtk1 { color: #f8f8f2 !important; } /* Default text */
+.monaco-editor .mtk2 { color: #8be9fd !important; } /* Types */
+.monaco-editor .mtk3 { color: #ff79c6 !important; } /* Keywords */
+.monaco-editor .mtk4 { color: #6272a4 !important; } /* Comments */
+.monaco-editor .mtk5 { color: #50fa7b !important; } /* Functions */
+.monaco-editor .mtk6 { color: #f1fa8c !important; } /* Strings */
+.monaco-editor .mtk7 { color: #bd93f9 !important; } /* Numbers */
+.monaco-editor .mtk8 { color: #ffb86c !important; } /* Parameters */
+.monaco-editor .mtk9 { color: #ff79c6 !important; } /* Operators */

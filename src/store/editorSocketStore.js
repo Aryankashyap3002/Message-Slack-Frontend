@@ -31,9 +31,13 @@ export const useEditorSocketStore = create((set) => ({
         });
 
         incomingSocket?.on('getPortSuccess', ({ port }) => {
-            console.log('port data', port);
-            portSetter(port);
-        })
+            console.log('Port received in editorSocketStore:', port);
+            if (port) {
+                portSetter(port);
+            } else {
+                console.error('Received empty port value from server');
+            }
+        });
 
         set({
             editorSocket: incomingSocket
