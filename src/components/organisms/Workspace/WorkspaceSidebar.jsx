@@ -14,6 +14,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Popover,
   PopoverContent,
@@ -28,6 +30,8 @@ export const WorkspaceSidebar = () => {
     const [createMenuOpen, setCreateMenuOpen] = useState(false);
     const [projectsMenuOpen, setProjectsMenuOpen] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
+    const [projectName, setProjectName] = useState('');
     const [createdProjectId, setCreatedProjectId] = useState('');
     const navigate = useNavigate();
     const { workspaceId } = useParams();
@@ -42,12 +46,22 @@ export const WorkspaceSidebar = () => {
     // Check if we're on a project page to determine if we should show the file tree toggle
     const isProjectPage = location.pathname.includes('/projects/');
 
-    async function handleCreateProject() {
+    const openCreateProjectModal = () => {
         setCreateMenuOpen(false);
-        console.log('Going to trigger the API with workspace ID:', workspaceId);
+        setShowCreateProjectModal(true);
+        setProjectName('');
+    };
+
+    async function handleCreateProject(e) {
+        e.preventDefault();
+        setShowCreateProjectModal(false);
+        
         try {
-            const response = await createProjectMutation({ workspaceId });
-            console.log('Project created successfully:', response);
+            const response = await createProjectMutation({ 
+                workspaceId,
+                name: projectName.trim() || 'sandbox'
+            });
+            console.log('Project created successfully:', projectName);
 
             // Check the response structure to correctly access the project ID
             const projectId = response.data?._id || response.data;
@@ -160,10 +174,9 @@ export const WorkspaceSidebar = () => {
                             <Button 
                                 variant="outline" 
                                 className="justify-start"
-                                onClick={handleCreateProject}
-                                disabled={isPending}
+                                onClick={openCreateProjectModal}
                             >
-                                {isPending ? 'Creating...' : 'Create Project'}
+                                Create Project
                             </Button>
                         </div>
                     </PopoverContent>
@@ -200,6 +213,40 @@ export const WorkspaceSidebar = () => {
                 </div>
             </aside>
 
+            {/* Create Project Modal */}
+            <Dialog open={showCreateProjectModal} onOpenChange={setShowCreateProjectModal}>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                        <DialogTitle>Create New Project</DialogTitle>
+                        <DialogDescription>
+                            Enter a name for your new project.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <form onSubmit={handleCreateProject}>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid gap-2">
+                                <Label htmlFor="projectName">Project Name</Label>
+                                <Input
+                                    id="projectName"
+                                    placeholder="My Awesome Project"
+                                    value={projectName}
+                                    onChange={(e) => setProjectName(e.target.value)}
+                                    autoFocus
+                                />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button type="button" variant="outline" onClick={() => setShowCreateProjectModal(false)}>
+                                Cancel
+                            </Button>
+                            <Button type="submit" disabled={isPending}>
+                                {isPending ? 'Creating...' : 'Create Project'}
+                            </Button>
+                        </DialogFooter>
+                    </form>
+                </DialogContent>
+            </Dialog>
+
             {/* Success Modal */}
             <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
                 <DialogContent className="sm:max-w-md">
@@ -210,6 +257,10 @@ export const WorkspaceSidebar = () => {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col gap-4 py-4">
+                        <div className="bg-muted p-4 rounded-md">
+                            <p className="text-sm font-medium">Project Name:</p>
+                            <p className="text-sm mt-1">{projectName || 'Untitled Project'}</p>
+                        </div>
                         <div className="bg-muted p-4 rounded-md">
                             <p className="text-sm font-medium">Project ID:</p>
                             <p className="text-xs font-mono overflow-auto break-all bg-background p-2 rounded mt-1">{createdProjectId}</p>

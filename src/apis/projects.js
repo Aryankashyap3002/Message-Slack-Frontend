@@ -1,8 +1,8 @@
-import { createFetchConfig } from '@/config/fetchConfig'; 
+import { createFetchConfig } from '@/config/fetchConfig';
 
 export const createProjectApi = async (data = {}) => {
   const { baseURL, headers } = createFetchConfig();
-  const { workspaceId, ...projectData } = data;
+  const { workspaceId, name, ...projectData } = data;
   
   // Make sure baseURL is correctly set
   if (!baseURL) {
@@ -19,13 +19,19 @@ export const createProjectApi = async (data = {}) => {
     url = `${baseURL}/projects`;
   }
   
+  // Ensure name is included in the request body if provided
+  const requestBody = {
+    ...projectData,
+    ...(name && { name })
+  };
+  
   try {
     console.log('Sending request to:', url);
     
     const response = await fetch(url, {
       method: 'POST',
       headers,
-      body: JSON.stringify(projectData)
+      body: JSON.stringify(requestBody)
     });
     
     if (!response.ok) {
@@ -40,8 +46,8 @@ export const createProjectApi = async (data = {}) => {
     throw error;
   }
 }
-  
-export const getProjectTree = async ({ workspaceId, projectId }) => {
+
+export const getProjectTree = async ({ workspaceId, projectId, name }) => {
   const { baseURL, headers } = createFetchConfig();
   
   if (!baseURL) {
@@ -52,9 +58,14 @@ export const getProjectTree = async ({ workspaceId, projectId }) => {
   try {
     // Use the new URL format that includes workspaceId
     const url = `${baseURL}/workspaces/${workspaceId}/projects/${projectId}/tree`;
-    console.log('Fetching project tree from:', url);
     
-    const response = await fetch(url, {
+    // Add name as query parameter if provided
+    const queryParams = name ? `?name=${encodeURIComponent(name)}` : '';
+    const fullUrl = `${url}${queryParams}`;
+    
+    console.log('Fetching project tree from:', fullUrl);
+    
+    const response = await fetch(fullUrl, {
       method: 'GET',
       headers
     });
@@ -74,7 +85,7 @@ export const getProjectTree = async ({ workspaceId, projectId }) => {
   }
 }
 
-export const getAllProjects = async ({ workspaceId }) => {
+export const getAllProjects = async ({ workspaceId, name }) => {
   const { baseURL, headers } = createFetchConfig();
   
   if (!baseURL) {
@@ -84,9 +95,14 @@ export const getAllProjects = async ({ workspaceId }) => {
   
   try {
     // Define the URL based on whether we're fetching all projects or workspace-specific projects
-    const url = workspaceId 
-      ? `${baseURL}/workspaces/${workspaceId}/projects` 
+    let url = workspaceId 
+      ? `${baseURL}/workspaces/${workspaceId}/projects`
       : `${baseURL}/projects`;
+    
+    // Add name as query parameter if provided
+    if (name) {
+      url += `?name=${encodeURIComponent(name)}`;
+    }
     
     console.log('Fetching all projects from:', url);
     

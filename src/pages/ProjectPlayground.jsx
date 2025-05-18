@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
-import { EditorComponent } from '@/components/molecules/EditorComponent/EditorComponent';
+import { EditorComponent } from '@/components/molecules/EditorComponent/EditorComponent' 
 import { useSidebarToggle } from '@/hooks/context/useSidebarToggle'; 
 
 import { BrowserTerminal } from '../components/molecules/BrowserTerminal/BrowserTerminal';
