@@ -71,62 +71,43 @@ export const ProjectPlayground = () => {
 
     return (
         <>
-            <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+            <div className="flex h-screen overflow-hidden bg-[#1e1e2e]">
                 {projectId && showFileTree && (
                     <div
-                        style={{
-                            backgroundColor: '#333254',
-                            paddingRight: '10px',
-                            paddingTop: '0.3vh',
-                            minWidth: '250px',
-                            maxWidth: '25%',
-                            height: '100vh',
-                            overflow: 'auto'
-                        }}
+                        className="flex-shrink-0 bg-[#2b2b3d] border-r border-gray-800 min-w-[250px] max-w-[25%] h-screen overflow-hidden transition-all duration-300 shadow-md"
                     >
                         <TreeStructure />
                     </div>
                 )}
                 <div
-                    style={{
-                        width: '100%',
-                        height: '100vh',
-                        overflow: 'hidden'
-                    }}
+                    className="flex-grow h-screen overflow-hidden"
                 >
                     <Allotment defaultSizes={[65, 35]}>
                         <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                width: '100%',
-                                height: '100%',
-                                backgroundColor: '#282a36',
-                                overflow: 'hidden'
-                            }}
+                            className="flex flex-col w-full h-full bg-[#282a36] overflow-hidden"
                         >
                             <Allotment vertical={true} defaultSizes={[70, 30]}>
                                 <EditorComponent />
                                 <BrowserTerminal />
                             </Allotment>
                         </div>
-                        <div style={{ height: '100%', overflow: 'hidden' }}>
+                        <div className="h-full overflow-hidden border-l border-gray-800">
                             {!loadBrowser ? (
-                                <div style={{ 
-                                    display: 'flex', 
-                                    justifyContent: 'center', 
-                                    alignItems: 'center',
-                                    height: '100%',
-                                    backgroundColor: '#f0f0f0'
-                                }}>
-                                    <Button 
-                                        type="primary"
-                                        onClick={() => setLoadBrowser(true)}
-                                        size="large"
-                                    >
-                                        Load my browser
-                                    </Button>
-                                   
+                                <div className="flex flex-col justify-center items-center h-full bg-[#24253a] text-gray-300">
+                                    <div className="text-center p-6 rounded-lg">
+                                        <h3 className="text-xl font-medium mb-6">Browser Preview</h3>
+                                        <Button 
+                                            type="primary"
+                                            onClick={() => setLoadBrowser(true)}
+                                            size="large"
+                                            className="bg-blue-600 hover:bg-blue-500 border-none shadow-lg hover:shadow-xl transition-all duration-300 px-6"
+                                        >
+                                            Load Browser
+                                        </Button>
+                                        <p className="mt-4 text-sm text-gray-500">
+                                            Click to load the browser preview
+                                        </p>
+                                    </div>
                                 </div>
                             ) : (
                                 projectIdFromUrl && (

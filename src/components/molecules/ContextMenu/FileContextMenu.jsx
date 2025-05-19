@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { FaCopy, FaCut, FaDownload, FaEdit, FaPaste,FaTrash } from 'react-icons/fa';
+import { FaCopy, FaCut, FaDownload, FaEdit, FaPaste, FaTrash } from 'react-icons/fa';
 
 import { useEditorSocketStore } from '../../../store/editorSocketStore';
 import { useFileContextMenuStore } from '../../../store/fileContextMenuStore';
@@ -92,23 +92,25 @@ export const FileContextMenu = ({ x, y, path }) => {
     return (
         <div 
             ref={menuRef}
-            className="fixed bg-[#2d2d40] border border-gray-700 rounded shadow-lg z-50 min-w-40 py-1"
+            className="fixed bg-[#2d2d40] border border-gray-700 rounded-md shadow-xl z-50 min-w-48 py-1 backdrop-blur-sm bg-opacity-95 transform-gpu"
             style={{ left: adjustedX, top: adjustedY }}
         >
-            <div className="px-3 py-2 text-xs text-gray-400 border-b border-gray-700 truncate max-w-xs">
+            <div className="px-3 py-2 text-xs text-gray-400 border-b border-gray-700 truncate max-w-xs font-mono">
                 {path}
             </div>
             {menuItems.map((item, index) => (
                 <div 
                     key={index}
-                    className={`px-3 py-2 flex items-center text-sm cursor-pointer ${
+                    className={`px-3 py-2 flex items-center text-sm cursor-pointer transition-colors duration-150 ${
                         item.danger 
-                            ? 'text-red-400 hover:bg-red-900 hover:bg-opacity-20' 
-                            : 'text-gray-200 hover:bg-blue-800 hover:bg-opacity-20'
+                            ? 'text-red-400 hover:bg-red-900 hover:bg-opacity-30' 
+                            : 'text-gray-200 hover:bg-blue-800 hover:bg-opacity-30'
                     }`}
                     onClick={item.action}
                 >
-                    {item.icon}
+                    <span className="w-6 h-6 flex items-center justify-center">
+                        {item.icon}
+                    </span>
                     {item.label}
                 </div>
             ))}

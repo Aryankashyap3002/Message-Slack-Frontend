@@ -1,8 +1,9 @@
 import { 
-FaCode, FaCss3Alt, FaDatabase, 
-FaFile, FaFont,     FaHtml5, FaImage, FaJava, FaJs,     FaMarkdown, FaPhp, 
-FaPython} from 'react-icons/fa';
-import { SiDocker, SiGit,SiJson, SiTypescript, SiYaml } from 'react-icons/si';
+    FaCode, FaCss3Alt, FaDatabase, 
+    FaFile, FaFont, FaHtml5, FaImage, FaJava, FaJs, 
+    FaMarkdown, FaPhp, FaPython
+} from 'react-icons/fa';
+import { SiDocker, SiGit, SiJson, SiTypescript, SiYaml } from 'react-icons/si';
 
 export const FileIcon = ({ extension, className = '' }) => {
     const getIconByExtension = () => {
@@ -30,7 +31,6 @@ export const FileIcon = ({ extension, className = '' }) => {
                 return <FaJava className="text-red-400" />;
             case 'php':
                 return <FaPhp className="text-indigo-400" />;
-
             case 'svg':
                 return <FaImage className="text-green-300" />;
             case 'png':
@@ -59,7 +59,7 @@ export const FileIcon = ({ extension, className = '' }) => {
     };
 
     return (
-        <div className={`flex items-center justify-center ${className}`}>
+        <div className={`flex items-center justify-center w-5 h-5 ${className}`}>
             {getIconByExtension()}
         </div>
     );

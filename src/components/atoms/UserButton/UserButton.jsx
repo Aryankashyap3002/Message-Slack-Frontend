@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom';
      async function handleLogout() {
         await logout();
         toast.success('Successfully signed out');
-        navigate('/auth/signin');
+        navigate('/');
 
     }
  
